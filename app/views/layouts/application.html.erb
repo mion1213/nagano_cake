@@ -2,15 +2,77 @@
 <html>
   <head>
     <title>NaganoCake</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/a5b17d123b.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+          <span>ながのcake</span>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+            
+            <li class="nav-item">
+              <%= link_to about_path, class: 'nav-link text-white' do %>
+                <span>About</span>
+              <% end %>
+            </li>
+            <!--商品一覧-->
+            <li class="nav-item">
+              <%= link_to about_path, class: 'nav-link text-white' do %>
+                <span>商品一覧</span>
+              <% end %>
+            </li>
+            <% if customer_signed_in? %>
+            <!--カート内-->
+            <li class="nav-item">
+              <%= link_to new_customer_registration_path, class: 'nav-link text-white' do %>
+                <span>カート</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to destroy_customer_session_path, method: :delete, class: 'nav-link text-white' do %>
+                <span>ログアウト</span>
+              <% end %>
+            </li>
+            <% else %>
+            <li class="nav-item">
+              <%= link_to new_customer_registration_path, class: 'nav-link text-white' do %>
+                <span>新規登録</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to new_customer_session_path, class: 'nav-link text-white' do %>
+                <span>ログイン</span>
+              <% end %>
+            </li>
+            <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
     <%= yield %>
+    </main>
+    <footer>
+      <div class="container mt-5">
+        <div class="row justify-content-center">
+          <div class="max-auto">
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
