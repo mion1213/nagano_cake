@@ -1,0 +1,14 @@
+        <tbody>
+          <% @customer.each do |customer| %>
+          <tr>
+            <td>
+              <%= customer.name %>
+            </td>
+            <td>
+              <%= customer.name_kana %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+        
+        <!--マイページの表示設定-->

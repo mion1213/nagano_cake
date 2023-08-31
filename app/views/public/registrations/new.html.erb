@@ -6,34 +6,34 @@
   <!--ラベル名や記述方法の変更必須-->
   
   <div class="field">
-    <%= f.label :名前 %>
-    <span>（姓）</span><%= f.text_field :last_name %>
-    <span>（名）</span><%= f.text_field :first_name %>
+    <%= f.label :name %>
+    <span>(姓)</span><%= f.text_field :last_name %>
+    <span>(名)</span><%= f.text_field :first_name %>
   </div>
   
   <div class="field">
-    <%= f.label :フリガナ %>
+    <%= f.label :name_kana %>
     <span>(セイ)</span><%= f.text_field :last_name_kana %>
     <span>(メイ)</span><%= f.text_field :first_name_kana %>
   </div>
 
   <div class="field">
-    <%= f.label :メールアドレス %>
+    <%= f.label :email %>
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
   
   <div class="field">
-    <%= f.label :郵便番号(ハイフンなし) %>
+    <%= f.label :postal_code %>
     <%= f.text_field :postal_code %>
   </div>
   
   <div class="field">
-    <%= f.label :住所 %>
+    <%= f.label :address %>
     <%= f.text_field :address %>
   </div>
   
   <div class="field">
-    <%= f.label :電話番号(ハイフンなし) %>
+    <%= f.label :telephone_number %>
     <%= f.text_field :telephone_number %>
   </div>
 
