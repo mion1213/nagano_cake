@@ -23,37 +23,45 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
             
+            <% if customer_signed_in? %>
             <li class="nav-item">
-              <%= link_to about_path, class: 'nav-link text-white' do %>
+              <%= link_to customer_path(current_customer), class: 'nav-link text-dark' do %>
+                <span>マイページ</span>
+              <% end %>
+            </li>
+            <% else %>
+            <li class="nav-item">
+              <%= link_to about_path, class: 'nav-link text-dark' do %>
                 <span>About</span>
               <% end %>
             </li>
+            <% end %>
             <!--商品一覧-->
             <li class="nav-item">
-              <%= link_to about_path, class: 'nav-link text-white' do %>
+              <%= link_to items_path, class: 'nav-link text-dark' do %>
                 <span>商品一覧</span>
               <% end %>
             </li>
             <% if customer_signed_in? %>
             <!--カート内-->
             <li class="nav-item">
-              <%= link_to new_customer_registration_path, class: 'nav-link text-white' do %>
+              <%= link_to new_customer_registration_path, class: 'nav-link text-dark' do %>
                 <span>カート</span>
               <% end %>
             </li>
             <li class="nav-item">
-              <%= link_to destroy_customer_session_path, method: :delete, class: 'nav-link text-white' do %>
+              <%= link_to destroy_customer_session_path, method: :delete, class: 'nav-link text-dark' do %>
                 <span>ログアウト</span>
               <% end %>
             </li>
             <% else %>
             <li class="nav-item">
-              <%= link_to new_customer_registration_path, class: 'nav-link text-white' do %>
+              <%= link_to new_customer_registration_path, class: 'nav-link text-dark' do %>
                 <span>新規登録</span>
               <% end %>
             </li>
             <li class="nav-item">
-              <%= link_to new_customer_session_path, class: 'nav-link text-white' do %>
+              <%= link_to new_customer_session_path, class: 'nav-link text-dark' do %>
                 <span>ログイン</span>
               <% end %>
             </li>
