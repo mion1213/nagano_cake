@@ -11,9 +11,11 @@ Rails.application.routes.draw do
   resources :genres
   
   # items
-  resources :items, only: [:index, :show]
-    namespace :admin do
-      resources :items, only: [:index, :new, :create, :show, :edit, :update]
+  scope module: :public do
+    resources :items, only: [:index, :show]
+      namespace :admin do
+        resources :items, only: [:index, :new, :create, :show, :edit, :update]
+      end
     end
   
   resources :cart_items, only: [:index, :update, :destroy, :destroy_all, :create]
