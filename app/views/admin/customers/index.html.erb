@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>会員一覧</h2>
+      <table class="table table-bordered table-inverse">
+        <thead class="table-light">
+          <tr>
+            <th>会員ID</th>
+            <th>氏名</th>
+            <th>メールアドレス</th>
+            <th>ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @customers.each do |customer| %>
+          <tr>
+            <td>
+              <%= customer.id %>
+            </td>
+            <td>
+              <%= link_to customer_path(customer.id) do %>
+                <%= customer.last_name %><%= customer.first_name %>
+              <% end %>
+            </td>
+            <td>
+              <%= customer.email %>
+            </td>
+            <td>
+              <%= customer.is_deleted %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

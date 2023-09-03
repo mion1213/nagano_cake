@@ -8,26 +8,26 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
   
-  resources :genres
-  
-  # items
   scope module: :public do
     resources :items, only: [:index, :show]
       namespace :admin do
         resources :items, only: [:index, :new, :create, :show, :edit, :update]
       end
-    end
+    
   
-  resources :cart_items, only: [:index, :update, :destroy, :destroy_all, :create]
+    resources :cart_items, only: [:index, :update, :destroy, :destroy_all, :create]
   
-  resources :orders, only: [:new, :confirm, :complete, :create, :index, :show]
-    namespace :admin do
-      resources :orders, only: [:update, :show]
-    end
+    resources :orders, only: [:new, :confirm, :complete, :create, :index, :show]
+      namespace :admin do
+        resources :orders, only: [:update, :show]
+      end
   
-  resources :addresses, only: [:index, :create, :edit, :update, :destroy]
+    resources :addresses, only: [:index, :create, :edit, :update, :destroy]
+    
+    root to: "homes#top"
+    get 'home/about' => 'homes#about' , as: "about"
+  end
   
-  # customers
   namespace :public do
     get '/customers/profile' => 'customers#show'
     get '/customers/profile/edit' => 'customers#edit'
@@ -38,10 +38,7 @@ Rails.application.routes.draw do
     # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   
   namespace :admin do
-
-  end
-  scope module: :public do
     root to: "homes#top"
-    get 'home/about' => 'homes#about' , as: "about"
+    resources :genres, only: [:index, :edit, :update]
   end
 end

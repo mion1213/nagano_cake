@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>商品一覧</h2>
+      <table class="table table-bordered table-inverse">
+        <thead class="table-light">
+          <tr>
+            <th>商品ID</th>
+            <th>商品名</th>
+            <th>税抜き価格</th>
+            <th>ジャンル</th>
+            <th>ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @items.each do |item| %>
+          <tr>
+            <td>
+              <%= item.id %>
+            </td>
+            <td>
+              <%= link_to item_path(item.id) do %>
+                <%= item.name %>
+              <% end %>
+            </td>
+            <td>
+              <%= item.price %>
+            </td>
+            <td>
+              <%= item.genre %>
+            </td>
+            <td>
+              <%= item.is_active %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

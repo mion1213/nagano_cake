@@ -45,7 +45,7 @@
             <% if customer_signed_in? %>
             <!--カート内-->
             <li class="nav-item">
-              <%= link_to new_customer_registration_path, class: 'nav-link text-dark' do %>
+              <%= link_to cart_items_path, class: 'nav-link text-dark' do %>
                 <span>カート</span>
               <% end %>
             </li>
