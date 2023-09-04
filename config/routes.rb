@@ -10,17 +10,19 @@ Rails.application.routes.draw do
   
   scope module: :public do
     resources :items, only: [:index, :show]
-      namespace :admin do
-        resources :items, only: [:index, :new, :create, :show, :edit, :update]
-      end
     
-  
-    resources :cart_items, only: [:index, :update, :destroy, :destroy_all, :create]
-  
-    resources :orders, only: [:new, :confirm, :complete, :create, :index, :show]
-      namespace :admin do
-        resources :orders, only: [:update, :show]
+    resources :cart_items, only: [:index, :update, :destroy, :create] do
+      collection do
+        get 'destroy_all'
       end
+    end
+  
+    resources :orders, only: [:new, :confirm, :complete, :create, :index, :show] do
+      collection do
+        get 'confirm'
+        get 'complete'
+      end
+    end
   
     resources :addresses, only: [:index, :create, :edit, :update, :destroy]
     
@@ -42,5 +44,6 @@ Rails.application.routes.draw do
     resources :orders, only: [:show, :update]
     resources :customers, only: [:index, :show, :edit, :update]
     resources :genres, only: [:index, :edit, :update]
+    resources :items, only: [:index, :new, :create, :show, :edit, :update]
   end
 end
