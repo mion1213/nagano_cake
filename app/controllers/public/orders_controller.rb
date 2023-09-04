@@ -99,4 +99,10 @@ class Public::OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
   end
+  
+  private
+  
+  def order_params
+    params.require(:order).permit(:postage, :peyment_method, :billing_amount, :address, :postal_code, :name, :status)
+    
 end

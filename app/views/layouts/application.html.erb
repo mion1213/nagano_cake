@@ -23,26 +23,20 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
             
+            <!--会員ログイン時ヘッダー-->
+            
             <% if customer_signed_in? %>
             <li class="nav-item">
               <%= link_to public_customers_profile_path, class: 'nav-link text-dark' do %>
                 <span>マイページ</span>
               <% end %>
             </li>
-            <% else %>
-            <li class="nav-item">
-              <%= link_to about_path, class: 'nav-link text-dark' do %>
-                <span>About</span>
-              <% end %>
-            </li>
-            <% end %>
             <!--商品一覧-->
             <li class="nav-item">
               <%= link_to items_path, class: 'nav-link text-dark' do %>
                 <span>商品一覧</span>
               <% end %>
             </li>
-            <% if customer_signed_in? %>
             <!--カート内-->
             <li class="nav-item">
               <%= link_to cart_items_path, class: 'nav-link text-dark' do %>
@@ -54,7 +48,51 @@
                 <span>ログアウト</span>
               <% end %>
             </li>
+            
+            <!--管理者ログイン時ヘッダー-->
+            <% elsif admin_signed_in? %>
+            <!--商品一覧-->
+            <li class="nav-item">
+              <%= link_to items_path, class: 'nav-link text-dark' do %>
+                <span>商品一覧</span>
+              <% end %>
+            </li>
+            <!--会員一覧-->
+            <li class="nav-item">
+              <%= link_to admin_customers_path, class: 'nav-link text-dark' do %>
+                <span>会員一覧</span>
+              <% end %>
+            </li>
+            <!--注文履歴一覧-->
+            <li class="nav-item">
+              <%= link_to admin_root_path, class: 'nav-link text-dark' do %>
+                <span>注文履歴一覧</span>
+              <% end %>
+            </li>
+            <!--ジャンル一覧-->
+            <li class="nav-item">
+              <%= link_to admin_genres_path, class: 'nav-link text-dark' do %>
+                <span>ジャンル一覧</span>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to destroy_customer_session_path, method: :delete, class: 'nav-link text-dark' do %>
+                <span>ログアウト</span>
+              <% end %>
+            </li>
+            <!--非ログイン時-->
             <% else %>
+            <li class="nav-item">
+              <%= link_to about_path, class: 'nav-link text-dark' do %>
+                <span>About</span>
+              <% end %>
+            </li>
+            <!--商品一覧-->
+            <li class="nav-item">
+              <%= link_to items_path, class: 'nav-link text-dark' do %>
+                <span>商品一覧</span>
+              <% end %>
+            </li>
             <li class="nav-item">
               <%= link_to new_customer_registration_path, class: 'nav-link text-dark' do %>
                 <span>新規登録</span>
@@ -66,6 +104,7 @@
               <% end %>
             </li>
             <% end %>
+            
             </ul>
           </div>
         </div>

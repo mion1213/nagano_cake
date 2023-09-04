@@ -21,6 +21,9 @@ class Public::AddressesController < ApplicationController
   end
   
   def destroy
+    address = Address.find(params[:id])
+    address.delete
+    redirect_to :index
   end
   
   private
