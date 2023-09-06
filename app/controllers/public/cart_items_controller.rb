@@ -6,14 +6,13 @@ class Public::CartItemsController < ApplicationController
   end
   
   def create
-    @cart_item ||= current_cart.cart_items.build(product_id: params[:item_id])
-    @cart_item.amount += params[:amount].to_i
-    if  @cart_item.save
+    @cart_item = CartItem.find_by(item_id: item_id)
+    if @cart_item
+      @cart_item.update(amount: cart_item.amount + params[:amount].to_i)
+    else
+      CartItem.create(item_id: item.id, amount: params[:amount].to_i)
       flash[:notice] = '商品が追加されました。'
       redirect_to cart_items_path
-    else
-      flash[:alert] = '商品の追加に失敗しました。'
-      redirect_to item_url(params[:item_id])
     end
   end
   

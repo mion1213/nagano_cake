@@ -1,0 +1,9 @@
+<div>
+  <%= image_tag @item.get_image %>
+  <p>商品名<%= @item.name %></p>
+  <p>商品説明<%= @item.introduction %></p>
+  <p>ジャンル<%= @item.genre %></p>
+  <p>税込価格</br>(税抜価格)<%= @item.with_tax_price %> (<%= @item.price %>)</p>
+  <p>販売ステータス</p>
+  <%= link_to '編集する', edit_admin_item_path(@item.id), class: "btn btn-success" %>
+</div>

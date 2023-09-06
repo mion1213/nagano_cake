@@ -7,10 +7,10 @@ class Item < ApplicationRecord
   
   validates :name, presence: true
   validates :introduction, presence: true
-  validates :price, presence: true
+  validates :price, presence: true, numericality: { only_integer: true }
   
-  def price_including_tax
-    price*1.1
+  def with_tax_price
+    (price*1.1).floor
   end
   
   def get_image
