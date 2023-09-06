@@ -4,6 +4,8 @@ ja:
       payment_method:
         credit_card: "クレジットカード"
         transfer: "銀行振込"
+    address:
+      current_customer_address:
         
   activerecord:
     errors:
