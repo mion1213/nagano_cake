@@ -12,13 +12,13 @@
           </tr>
         </thead>
         <tbody>
-          <% @customers.each do |customer| %>
+        <% @customers.each do |customer| %>
           <tr>
             <td>
               <%= customer.id %>
             </td>
             <td>
-              <%= link_to customer_path(customer.id) do %>
+              <%= link_to admin_customer_path(customer.id) do %>
                 <%= customer.last_name %><%= customer.first_name %>
               <% end %>
             </td>
@@ -29,6 +29,7 @@
               <%= customer.is_deleted %>
             </td>
           </tr>
+        <% end %>
         </tbody>
       </table>
     </div>

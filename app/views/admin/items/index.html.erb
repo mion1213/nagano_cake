@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col">
       <h2>商品一覧</h2>
+      <%= link_to "商品登録", new_admin_item_path %>
       <table class="table table-bordered table-inverse">
         <thead class="table-light">
           <tr>
@@ -19,7 +20,7 @@
               <%= item.id %>
             </td>
             <td>
-              <%= link_to item_path(item.id) do %>
+              <%= link_to admin_item_path(item.id) do %>
                 <%= item.name %>
               <% end %>
             </td>
@@ -27,14 +28,14 @@
               <%= item.price %>
             </td>
             <td>
-              <%= item.genre %>
+              <%= item.genre.name %>
             </td>
             <td>
               <%= item.is_active %>
             </td>
           </tr>
           <% end %>
-          <%= paginate items %>
+          <%= paginate @items %>
         </tbody>
       </table>
     </div>

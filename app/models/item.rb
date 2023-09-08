@@ -7,7 +7,8 @@ class Item < ApplicationRecord
   
   validates :name, presence: true
   validates :introduction, presence: true
-  validates :price, presence: true, numericality: { only_integer: true }
+  validates :price, presence: true
+  validates :is_active, inclusion: { in: [true, false] }
   
   def with_tax_price
     (price*1.1).floor

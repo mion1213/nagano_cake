@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col6">
+      <%= form_with model: @address do |f| %>
+        <h4>郵便番号(ハイフンなし)</h4>
+        <%= f.text_field :postal_code %>
+        <h4>住所</h4>
+        <%= f.text_field :address %>
+        <h4>宛名</h4>
+        <%= f.text_field :name %>
+        <%= f.submit '新規登録' %>
+      <% end %>
+
+      <table>
+        <thead>
+          <tr>
+            <th>郵便番号</th>
+            <th>住所</th>
+            <th>宛名</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @addresses.each do |address| %>
+          <tr>
+            <td>
+              <%= address.postal_code %>
+            </td>
+            <td>
+              <%= address.address %>
+            </td>
+            <td>
+              <%= address.name %>
+            </td>
+            <td>
+              <%= link_to '編集する', edit_address_path(address.id), class="btn btn-success" %>
+              <!--infoを赤色のボタンに-->
+              <%= link_to '削除する', address_path(address.id), method: :delete, class="btn btn-info" %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

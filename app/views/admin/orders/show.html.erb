@@ -1,1 +1,11 @@
-<h1>注文履歴詳細</h1>
+<div class="container">
+  <div class="row">
+    <div class="col6">
+      <p><strong>購入者</strong><%= @order.customer.name %></p>
+      <p><strong>注文日</strong><%= @order.created_at %></p>
+      <p><strong>配送先</strong><%= @order.address %></p>
+      <p><strong>支払い方法</strong><%= @order.payment_method %></p>
+      <p><strong>注文ステータス</strong><%= @order.status %></p>
+    </div>
+  </div>
+</div>

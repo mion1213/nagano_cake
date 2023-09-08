@@ -2,7 +2,6 @@
   <div class="row">
     <div class="col">
       <h2>登録情報</h2>
-      <%= link_to "編集する", public_customers_profile_edit_path(@customer) %>
       <table class="table table-bordered table-inverse">
         <thead></thead>
         <tbody>
@@ -44,8 +43,7 @@
           </tr>
         </tbody>
       </table>
-      <!--配送先一覧リンク作成-->
-      <h4>配送先</h4>
+      <%= link_to "編集する", edit_admin_customer_path(@customer.id) %>
       <!--注文履歴一覧リンク作成-->
       <h4>注文履歴</h4>
     </div>

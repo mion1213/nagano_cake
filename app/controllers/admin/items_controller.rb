@@ -15,6 +15,8 @@ class Admin::ItemsController < ApplicationController
     else
       flash[:notice] = "商品の追加に失敗しました"
       render :new
+      # バリデーションエラーを確認
+      puts @item.errors.full_messages
     end
   end
   
@@ -40,6 +42,6 @@ class Admin::ItemsController < ApplicationController
   private
   
   def item_params
-    params.require(:item).permit(:name, :introduction, :price, :image)
+    params.require(:item).permit(:name, :introduction, :price, :image, :is_active, :genre_id)
   end
 end

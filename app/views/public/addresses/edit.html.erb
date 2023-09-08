@@ -1,0 +1,13 @@
+<h2>配送先編集</h2>
+<%= form_with model: @address do |f| %>
+  <label for="inputPostalCode">郵便番号</label>
+  <%= f.text_field :postal_code, autofocus: true, id: "inputPostalCode", placeholder: "郵便番号" %>
+  
+  <label for="inputAddress">住所</label>
+  <%= f.text_field :address, id: "inputAddress", placeholder: "住所" %>
+  
+  <label for="inputName">宛名</label>
+  <%= f.text_field :name, id: "inputName", placeholder: "宛名" %>
+  
+  <%= f.submit "変更を保存" %>
+<% end %>

@@ -1,5 +1,8 @@
+<div>
+  <%= flash[:notice] %>
+</div>
 <h1>商品新規登録</h1>
-<%= form_with model: @item do |f| %>
+<%= form_with model: @item, url: admin_items_path, method: :post, local: true do |f| %>
   <h4>商品画像</h4>
   <%= f.file_field :image, accept: "image/*" %>
   <h4>商品名</h4>
@@ -7,9 +10,9 @@
   <h4>商品説明</h4>
   <%= f.text_area :introduction %>
   <h4>ジャンル</h4>
-  
+  <%= f.select :genre_id, options_from_collection_for_select(Genre.all, :id, :name) %>
   <h4>税抜き価格</h4>
-  <%= f.text_field :price, pattern: '\d+' %>
+  <%= f.number_field :price %>
   <h4>販売ステータス</h4>
   <%= f.radio_button :is_active, true %>
   <%= f.label :is_active, "販売中", {value: :true, style: "display: inline-block;"} %>
