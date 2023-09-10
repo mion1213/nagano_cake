@@ -1,1 +1,20 @@
-<h1>本当に退会しますか？</h1>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <p>本当に退会しますか？</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p>退会すると、会員登録情報や<br>
+      これまでの購入履歴が閲覧できなくなります。<br>
+      退会する場合は、「退会する」をクリックしてください。</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <%= link_to '退会しない', customer_profile_path, class="btn btn-info" %>
+      <%= link_to '退会する' withdraw_customers_path, data: { "turbo-method": :patch }, class="btn btn-danger" %>
+    </div>
+  </div>
+</div>
