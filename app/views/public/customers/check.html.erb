@@ -13,8 +13,8 @@
   </div>
   <div class="row">
     <div class="col">
-      <%= link_to '退会しない', customer_profile_path, class="btn btn-info" %>
-      <%= link_to '退会する' withdraw_customers_path, data: { "turbo-method": :patch }, class="btn btn-danger" %>
+      <%= link_to '退会しない', public_customers_profile_path, class: 'btn btn-info' %>
+      <%= link_to '退会する', public_customers_profile_withdraw_path, method: :patch, data: { turbo: true }, class: 'btn btn-danger' %>
     </div>
   </div>
 </div>

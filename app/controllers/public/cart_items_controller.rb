@@ -1,11 +1,11 @@
 class Public::CartItemsController < ApplicationController
   before_action :authenticate_customer!
-  before_action :set_cart_item, only: %i[increase decrease destroy]
+  before_action :setup_cart_item!, only: %i[increase decrease destroy]
   
   def index
     @cart_items = current_customer.cart_items
     # カートに入ってる商品の合計金額
-    @total = @cart_items.inject(0) { |sum, item| sum + item.sum_of_price }
+    @total = @cart_items.inject(0) { |sum, item| sum + item.subtotal }
   end
   
   def create
