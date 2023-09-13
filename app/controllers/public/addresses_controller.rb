@@ -5,7 +5,7 @@ class Public::AddressesController < ApplicationController
   end
   
   def create
-    @address = Addres.new(address_params)
+    @address = Address.new(address_params)
     @address.save
     redirect_to :index
   end

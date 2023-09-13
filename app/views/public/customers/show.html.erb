@@ -44,10 +44,9 @@
           </tr>
         </tbody>
       </table>
-      <!--配送先一覧リンク作成-->
-      <h4>配送先</h4>
-      <!--注文履歴一覧リンク作成-->
-      <h4>注文履歴</h4>
+      <div class="col">
+        <%= link_to '配送先', addresses_path, class: 'btn btn-info' %>
+        <%= link_to '注文履歴', _path, class: 'btn btn-info' %>
     </div>
   </div>
 </div>

@@ -8,7 +8,7 @@ ja:
       address:
         current_customer_address: "ご自身の住所"
         addresses: "登録済住所から選択"
-        new_addess: "新しいお届け先"
+        new_address: "新しいお届け先"
         
   activerecord:
     errors:
