@@ -12,7 +12,7 @@ class Public::OrdersController < ApplicationController
     #以下、商品合計額の計算
     ary = []
     @cart_items.each do |cart_item|
-      ary << cart_item.item.price*cart_item.quantity
+      ary << cart_item.item.price*cart_item.amount
     end
     @cart_items_price = ary.sum
       
@@ -41,13 +41,13 @@ class Public::OrdersController < ApplicationController
   end
   
   def create
-    @order = Order.new(order.params)
+    @order = Order.new(order_params)
     @order.customer_id = current_customer.id
     @order.postage = 800
     @cart_items = CartItem.where(customer_id: current_customer.id)
     ary = []
     @cart_items.each do |cart_item|
-      ary << cart_item.item.price*cart_item.quantity
+      ary << cart_item.item.price*cart_item.amount
     end
     @cart_items_price = ary.sum
     @order.billing_amount = @order.postage + @cart_items_price
@@ -105,7 +105,7 @@ class Public::OrdersController < ApplicationController
   private
   
   def order_params
-    params.require(:order).permit(:postage, :payment_method, :billing_amount, :address, :postal_code, :name, :status)
+    params.require(:order).permit(:postage, :payment_method, :billing_amount, :address, :postal_code, :name, :status, :customer_id)
   end
     
 end

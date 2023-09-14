@@ -16,6 +16,15 @@ class Customer < ApplicationRecord
   validates :postal_code, presence: true
   validates :address, presence: true
   validates :telephone_number, presence: true
+  
+  
+  def customer_status
+    if is_deleted == true
+      "退会"
+    else
+      "有効"
+    end
+  end
          
   def active_for_authentication?
     super && (is_deleted == false)

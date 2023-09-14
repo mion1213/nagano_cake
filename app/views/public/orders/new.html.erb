@@ -3,7 +3,7 @@
     <div class="col-md-12">
 
       <h3>注文情報入力</h3>
-      <%= form_with model: Order.new, url: confirm_orders_path, method: :get do |f|  %>
+      <%= form_with model: @order do |f|  %>
 
       <h4>支払い方法</h4>
         <%= f.radio_button :payment_method, Order.payment_methods.key(0) %>
@@ -14,20 +14,20 @@
 
       <div>
         <h4>お届け先</h4>
-        <%= f.radio_button :address, Address.address_types.key(0) %>
-        <%= f.label :address, Address.address_types_i18n[:current_customer_address] %>
+        <%= f.radio_button :address_type, Address.address_types.key(0) %>
+        <%= f.label :address_type, Address.address_types_i18n[:current_customer_address] %>
         <% if current_customer.addresses.present? %>
           <% current_customer.addresses.each do |address| %>
             <%= address.address_display %><br>
           <% end %>
         <% end %>
       
-        <%= f.radio_button :address, Address.address_types.key(1) %>
-        <%= f.label :address, Address.address_types_i18n[:addresses] %>
+        <%= f.radio_button :address_type, Address.address_types.key(1) %>
+        <%= f.label :address_type, Address.address_types_i18n[:addresses] %>
         <%= f.select :address_id, options_from_collection_for_select(Address.all, :id, :address_display) %>
       
-        <%= f.radio_button :address, Address.address_types.key(2) %>
-        <%= f.label :address, Address.address_types_i18n[:new_address] %>
+        <%= f.radio_button :address_type, Address.address_types.key(2) %>
+        <%= f.label :address_type, Address.address_types_i18n[:new_address] %>
       
         <%= f.fields_for @address do |address_form| %>
           <h4>郵便番号(ハイフンなし)</h4>
