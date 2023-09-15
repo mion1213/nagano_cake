@@ -16,11 +16,6 @@ ja:
         production_pending: "製作待ち"
         in_production: "製作中"
         production_complete: "製作完了"
-    address:
-      address_type:
-        current_customer_address: "ご自身の住所"
-        addresses: "登録済住所から選択"
-        new_address: "新しいお届け先"
         
   activerecord:
     errors:

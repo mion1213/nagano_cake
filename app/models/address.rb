@@ -5,7 +5,6 @@ class Address < ApplicationRecord
   validates :address, presence: true
   validates :name, presence: true
   
-  enum address_type: {current_customer_address: 0, addresses: 1, new_address: 2}
   
   def address_display
     '〒' + postal_code + ' ' + address + ' ' + name

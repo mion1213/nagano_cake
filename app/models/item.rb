@@ -14,6 +14,14 @@ class Item < ApplicationRecord
     (price*1.1).floor
   end
   
+  def status
+    if is_active == true
+      "販売中"
+    else
+      "販売停止中"
+    end
+  end
+  
   def get_image(width, height)
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')

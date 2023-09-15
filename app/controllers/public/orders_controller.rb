@@ -5,6 +5,7 @@ class Public::OrdersController < ApplicationController
   end
   
   def confirm
+    @order = Order.new(order_params)
     @cart_items = CartItem.where(customer_id: current_customer.id)
     @postage = 800 #送料は800円で固定
     @selected_payment_method = params[:order][:payment_method]
@@ -60,6 +61,7 @@ class Public::OrdersController < ApplicationController
     
     address_type = params[:order][:address_type]
     case address_type
+    
     when "customer_address"
       @order.postal_code = current_customer.postal_code
       @order.address = current_customer.address
@@ -95,7 +97,7 @@ class Public::OrdersController < ApplicationController
   end    
   
   def index
-    @orders = Orders.all
+    @orders = Order.all
   end
   
   def show

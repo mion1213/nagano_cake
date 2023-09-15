@@ -18,7 +18,7 @@ class Customer < ApplicationRecord
   validates :telephone_number, presence: true
   
   
-  def customer_status
+  def status
     if is_deleted == true
       "退会"
     else
