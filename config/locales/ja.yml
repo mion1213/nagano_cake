@@ -10,6 +10,10 @@ ja:
         in_production: "製作中"
         preparing_delivery: "発送準備中"
         delivered: "発送済み"
+      select_address:
+        current_customer_address: "ご自身の住所"
+        addresses: "登録済み住所"
+        new_address: "新しいお届け先"
     order_detail:
       crafting_status:
         production_not_possible: "製作不可"

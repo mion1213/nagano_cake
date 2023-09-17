@@ -3,7 +3,7 @@
     <div class="col-md-12">
 
       <h3>注文情報入力</h3>
-      <%= form_with model: @order do |f|  %>
+      <%= form_with model: @order, url: confirm_orders_path, method: :post, local: true do |f|  %>
 
       <h4>支払い方法</h4>
         <%= f.radio_button :payment_method, Order.payment_methods.key(0) %>
@@ -14,17 +14,17 @@
 
       <div>
         <h4>お届け先</h4>
-        <%= f.radio_button :address, "current_customer_address" %>
-        <%= f.label :address_current_customer_address, "ご自身の住所" %><br>
+        <%= f.radio_button :select_address, Order.select_addresses.key(0) %>
+        <%= f.label :select_address, Order.select_addresses_i18n[:current_customer_address] %><br>
         <br>
       
-        <%= f.radio_button :address, "addresses" %>
-        <%= f.label :address_addresses, "登録済み住所から選択" %><br>
+        <%= f.radio_button :select_address, Order.select_addresses.key(1) %>
+        <%= f.label :select_address, Order.select_addresses_i18n[:addresses] %><br>
         <%= f.select :address_id, options_from_collection_for_select(Address.all, :id, :address_display) %>
         <br>
       
-        <%= f.radio_button :address, "new_address" %>
-        <%= f.label :address_new_address, "新しいお届け先" %>
+        <%= f.radio_button :select_address, Order.select_addresses.key(2) %>
+        <%= f.label :select_address, Order.select_addresses_i18n[:new_address] %>
       
         <%= f.fields_for @address do |address_form| %>
           <h4>郵便番号(ハイフンなし)</h4>

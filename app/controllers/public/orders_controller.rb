@@ -1,113 +1,75 @@
 class Public::OrdersController < ApplicationController
+  before_action :authenticate_customer!
+
+  # 注文情報入力画面
   def new
     @order = Order.new
-    @address = Address.new
+    @address = Address.new 
+    @addresses = current_customer.addresses.all
   end
-  
+
+  # 注文情報入力確認画面
   def confirm
-    @order = Order.new(order_params)
-    @cart_items = CartItem.where(customer_id: current_customer.id)
-    @postage = 800 #送料は800円で固定
-    @selected_payment_method = params[:order][:payment_method]
-    
-    #以下、商品合計額の計算
-    ary = []
-    @cart_items.each do |cart_item|
-      ary << cart_item.item.price*cart_item.amount
-    end
-    @cart_items_price = ary.sum
-      
-    @billing_amount = @postage + @cart_items_price
-    @address_type = params[:order][:address_type]
-    case @address_type
-    when "customer_address"
-      @selected_address = current_customer.postal_code + " " + current_customer.address + " " + current_customer.last_name + current_customer.first_name
-    when "registered_address"
-      unless params[:order][:registered_address_id] == ""
-        selected = Address.find(params[:order][:registered_address_id])
-        @selected_address = selected.postal_code + " " + selected.address + " " + selected.name
-      else
-        render :new
-      end
-    when "new_address"
-      unless params[:order][:new_postal_code] == "" && params[:order][:new_address] == "" && params[:order][:new_name] == ""
-        @selected_address = params[:order][:new_postal_code] + " " + params[:order][:new_address] + " " + params[:order][:new_name]
-      else
-        render :new
-      end
-    end
-  end
-  
-  def complete
-  end
-  
-  def create
-    @order = Order.new(order_params)
-    @order.customer_id = current_customer.id
-    @order.postage = 800
-    @cart_items = CartItem.where(customer_id: current_customer.id)
-    ary = []
-    @cart_items.each do |cart_item|
-      ary << cart_item.item.price*cart_item.amount
-    end
-    @cart_items_price = ary.sum
-    @order.billing_amount = @order.postage + @cart_items_price
-    @order.payment_method = params[:order][:payment_method]
-    if @order.payment_method == "credit_card"
-      @order.status = 1
-    else
-      @order.status = 0
-    end
-    
-    address_type = params[:order][:address_type]
-    case address_type
-    
-    when "customer_address"
+    @order_items = current_customer.cart_items
+    select_address = params[:order][:select_address].to_i
+    if select_address == 0
+      @order = Order.new(order_params)
       @order.postal_code = current_customer.postal_code
       @order.address = current_customer.address
-      @order.name = current_customer.last_name + current_customer.first_name
-    when "registered_address"
-      Address.find(params[:order][:registered_address_id])
-      selected = Address.find(params[:order][:registered_address_id])
-      @order.postal_code = selected.postal_code
-      @order.address = selected.address
-      @order.name = selected.name
-    when "new_address"
-      @order.postal_code = params[:order][:new_postal_code]
-      @order.address = params[:order][:new_address]
-      @order.name = params[:order][:new_name]
+      @order.name = current_customer.first_name + current_customer.last_name
+    elsif select_address == 1
+      @order = Order.new(order_params)
+      @address = Address.find(params[:order][:address_id])
+      @order.postal_code = @address.postal_code
+      @order.address = @address.address
+      @order.name = @address.name
+    elsif select_address == 2
+      @order = Order.new(order_params)
+    else
+      render :new
     end
-  
+  end
+
+  # 注文情報保存
+  def create
+    @order = current_customer.orders.build(order_params)
+    
+    
     if @order.save
-      if @order.status == 0
-        @cart_items.each do |cart_item|
-          OrderDetail.create!(order_id: @order.id, item_id: cart_item.item.id, price: cart_item.item.price, quantity: cart_item.quantity, making_status: 0)
-        end
-      else
-        @cart_items.each do |cart_item|
-          OrderDetail.create!(order_id: @order.id, item_id: cart_item.item.id, price: cart_item.item.price, quantity: cart_item.quantity, making_status: 1)
-        end
+      current_customer.cart_items.each do |cart_item|
+        ordered_item = @order.ordered_items.build(
+          item_id: cart_item.item_id,
+          amount: cart_item.amount,
+          tax_included_price: cart_item.item.with_tax_price
+        )
+        ordered_item.save
       end
-      @cart_items.destroy_all
+
+      current_customer.cart_items.destroy_all
       redirect_to complete_orders_path
     else
-      @items = Item.all
-      render :items
+      render 'new'
     end
-  end    
-  
+  end
+
+  # 注文完了画面
+  def complete
+  end
+
+  # 注文情報履歴一覧
   def index
-    @orders = Order.all
+    @orders = current_customer.orders
   end
-  
+
+  # 注文情報詳細
   def show
-    @order = Order.find(params[:id])
+    @order = current_customer.orders.find(params[:id])
+    @items = @order.items
   end
-  
+
   private
-  
+
   def order_params
     params.require(:order).permit(:postage, :payment_method, :billing_amount, :address, :postal_code, :name, :status, :customer_id)
   end
-    
 end
