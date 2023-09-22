@@ -38,7 +38,7 @@
           <tr>
             <td>商品合計</td>
             <td>
-              <%= @order.created_at.strftime('%Y/%m/%d') %>
+              <%= @order_details.sum { |order_detail| order_detail.price_including_tax * order_detail.quantity } %>
             </td>
           </tr>
           <tr>
@@ -50,54 +50,11 @@
           <tr>
             <td>ご請求額</td>
             <td>
-              <%= @order.payment_method %>
-            </td>
-          </tr>
-          <tr>
-            <td>ステータス</td>
-            <td>
-              <%= @order.status %>
+              <%= @order.billing_amount %>
             </td>
           </tr>
         </tbody>
       </table>
-      <table class="table table-bordered table-inverse">
-        <thead>
-          <tr>
-            <th>注文日</th>
-            <th>配送先</th>
-            <th>注文商品</th>
-            <th>支払金額</th>
-            <th>ステータス</th>
-            <th>注文詳細</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @orders.each do |order| %>
-          <tr>
-            <td>
-              <%= order.created_at.strftime('%Y/%m/%d') %>
-            </td>
-            <td>
-              <%= order.address %>
-            </td>
-            <td>
-              <%= order.item.name %>
-            </td>
-            <td>
-              <%= order.billing_amount %>
-            </td>
-            <td>
-              <%= order.status %>
-            </td>
-            <td>
-              <%= link_to '表示する', order_path(order.id), class: "btn btn-info" %>
-            </td>
-            <!--@total定義まだ-->
-              <% @total += cart_item.subtotal %>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
-      
-      <!--each途中-->
+    </div>
+  </div>
+</div>

@@ -14,19 +14,20 @@
 
       <div>
         <h4>お届け先</h4>
-        <%= f.radio_button :select_address, Order.select_addresses.key(0) %>
+        <%= f.radio_button :select_address, 0 %>
         <%= f.label :select_address, Order.select_addresses_i18n[:current_customer_address] %><br>
-        <br>
+        <span>〒<%= current_customer.postal_code %> <%= current_customer.address %></span><br>
+        <span><%= current_customer.last_name %><%= current_customer.first_name %></span><br>
       
-        <%= f.radio_button :select_address, Order.select_addresses.key(1) %>
+        <%= f.radio_button :select_address, 1 %>
         <%= f.label :select_address, Order.select_addresses_i18n[:addresses] %><br>
         <%= f.select :address_id, options_from_collection_for_select(Address.all, :id, :address_display) %>
         <br>
       
-        <%= f.radio_button :select_address, Order.select_addresses.key(2) %>
+        <%= f.radio_button :select_address, 2 %>
         <%= f.label :select_address, Order.select_addresses_i18n[:new_address] %>
       
-        <%= f.fields_for @address do |address_form| %>
+        <%= f.fields_for :address do |address_form| %>
           <h4>郵便番号(ハイフンなし)</h4>
           <%= address_form.text_field :postal_code %>
           <h4>住所</h4>

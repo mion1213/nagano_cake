@@ -23,7 +23,9 @@
               <%= order.address %>
             </td>
             <td>
-              <%= order.item.name %>
+              <% order.order_details.each do |order_detail| %>
+                <%= order_detail.item.name %><br>
+              <% end %>
             </td>
             <td>
               <%= order.billing_amount %>
@@ -34,10 +36,8 @@
             <td>
               <%= link_to '表示する', order_path(order.id), class: "btn btn-info" %>
             </td>
-            <!--@total定義まだ-->
-              <% @total += cart_item.subtotal %>
           </tr>
-        <% end %>
+          <% end %>
         </tbody>
       </table>
     </div>
