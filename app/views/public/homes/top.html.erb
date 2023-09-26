@@ -1,1 +1,29 @@
-<h1>top</h1>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col6">
+      <span>
+        ようこそ、ながのCAKEへ！<br>
+        このサイトは、ケーキ販売のECサイトになります。<br>
+        会員でない方も商品の閲覧はできますが、<br>
+        購入には会員登録が必要になります。
+      </span>
+    </div>
+  </div>
+  <h2>新着商品</h2>
+  <div class="row justify-content-center">
+    <% @items.each do |item| %>
+      <div class="col-4">
+        <div class="card mb-4">
+          <%= link_to item_path(item), class: "card-link" do %>
+            <%= image_tag item.get_image(1000,800), class: "card-img-top" %>
+            <div class="card-body">
+              <h5 class="card-title"><%= item.name %></h5>
+              <p class="card-text">￥<%= item.price %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <%= link_to "全ての商品を見る>", items_path %>
+  </div>
+</div>

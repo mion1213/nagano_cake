@@ -1,13 +1,13 @@
 <div class="container">
   <div class="row">
     <div class="col6">
-      <p><strong>購入者</strong><%= @order.customer.name %></p>
-      <p><strong>注文日</strong><%= @order.created_at %></p>
+      <p><strong>購入者</strong><%= @order.customer.full_name %></p>
+      <p><strong>注文日</strong><%= @order.created_at.strftime('%Y/%m/%d') %></p>
       <p><strong>配送先</strong><%= @order.address %></p>
-      <p><strong>支払い方法</strong><%= @order.payment_method %></p>
+      <p><strong>支払い方法</strong><%= @order.payment_method_i18n %></p>
       <p><strong>注文ステータス</strong>
       <%= form_with model: @order, url: admin_order_path, method: :patch, local: true do |f|  %>
-        <%= f.select :status, options_from_collection_for_select(Order.status) %>
+        <%= f.select :status, options_for_select(Order.statuses.map { |k, v| [I18n.t("enums.order.status.#{k}"), v] }, @order.status), class: "status" %>
       <% end %></p>
     </div>
   </div>
@@ -24,23 +24,23 @@
           </tr>
         </thead>
         <tbody>
-          <% @order_items.each do |order_item| %>
+          <% @order_details.each do |order_detail| %>
           <tr>
             <td>
-              <%= order_item.item.name %>
+              <%= order_detail.item.name %>
             </td>
             <td>
-              <%= order_item.item.with_tax_price %>
+              <%= order_detail.item.with_tax_price %>
             </td>
             <td>
-              <%= order_item.amount %>
+              <%= order_detail.quantity %>
             </td>
             <td>
-              <%= order_item.subtotal %>
+              <%= order_detail.subtotal %>
             </td>
             <td>
-              <%= form_with model: @order, url: admin_order_detail_path, method: :patch, local: true do |f|  %>
-                <%= f.select :crafting_status, options_from_collection_for_select(OrderDetail.crafting_statuses, order_item.crafting_status) %>
+              <%= form_with model: @order_detail, url: admin_order_detail_path, method: :patch, local: true do |f|  %>
+                <%= f.select :crafting_status, options_for_select(OrderDetail.crafting_statuses.map { |k, v| [I18n.t("enums.order_detail.crafting_status.#{k}"), v] }, @order_detail.crafting_status), class: "crafting_status" %>
                 <%= f.submit "更新", class: "btn btn-success" %>
               <% end %>
             </td>

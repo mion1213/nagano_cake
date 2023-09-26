@@ -6,6 +6,12 @@
         <thead></thead>
         <tbody>
           <tr>
+            <td>会員ID</td>
+            <td>
+              <%= @customer.id %>
+            </td>
+          </tr>
+          <tr>
             <td>氏名</td>
             <td>
               <%= @customer.last_name %> <%= @customer.first_name %>
@@ -44,8 +50,6 @@
         </tbody>
       </table>
       <%= link_to "編集する", edit_admin_customer_path(@customer.id) %>
-      <!--注文履歴一覧リンク作成-->
-      <h4>注文履歴</h4>
     </div>
   </div>
 </div>

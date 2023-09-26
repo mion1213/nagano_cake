@@ -17,6 +17,9 @@ class Customer < ApplicationRecord
   validates :address, presence: true
   validates :telephone_number, presence: true
   
+  def full_name
+    last_name + ' ' + first_name
+  end
   
   def status
     if is_deleted == true
