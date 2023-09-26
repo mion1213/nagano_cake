@@ -5,7 +5,7 @@
       <div class="col-4">
         <div class="card mb-4">
           <%= link_to item_path(item), class: "card-link" do %>
-            <%= image_tag item.get_image(100,100), class: "card-img-top" %>
+            <%= image_tag item.get_image(300, 200), class: "card-img-top" %>
             <div class="card-body">
               <h5 class="card-title"><%= item.name %></h5>
               <p class="card-text">￥<%= item.price %></p>

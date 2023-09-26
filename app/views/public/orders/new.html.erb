@@ -17,7 +17,7 @@
         <%= f.radio_button :select_address, 0 %>
         <%= f.label :select_address, Order.select_addresses_i18n[:current_customer_address] %><br>
         <span>〒<%= current_customer.postal_code %> <%= current_customer.address %></span><br>
-        <span><%= current_customer.last_name %><%= current_customer.first_name %></span><br>
+        <span><%= current_customer.full_name %></span><br>
       
         <%= f.radio_button :select_address, 1 %>
         <%= f.label :select_address, Order.select_addresses_i18n[:addresses] %><br>
