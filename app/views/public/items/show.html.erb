@@ -1,14 +1,15 @@
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <%= image_tag @item.get_image(100,100) %>
-      <p><%= @item.name %></p>
+  <div class="row justify-content-center">
+    <div class="col-7">
+      <%= image_tag @item.get_image(600,400) %>
+    </div>
+    <div class="col-4">
+      <h3><strong><%= @item.name %></strong></h3>
       <p><%= @item.introduction %></p>
-      <p><%= @item.with_tax_price %>(税込)</p>
+      <h4>￥<%= @item.with_tax_price %>(税込)</h4>
       <% if @item.is_active == true %>
         <%= form_with model: @cart_item, url: cart_items_path, method: :post, local: true do |f| %>
-          <%= f.label :amount, "個数選択" %>
-          <%= f.select :amount, *[1..10] %>
+          <%= f.select :amount, options_for_select([["選択してください", ""]] + (1..10).map { |n| ["#{n} 個", n] }) %>
           <% if current_customer %>
             <%= f.hidden_field :customer_id, value: current_customer.id %>
           <% end %>

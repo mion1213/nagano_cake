@@ -27,11 +27,9 @@ class Public::CartItemsController < ApplicationController
   end
   
   def update
-    if @cart_item.update(amount: params[:amount].to_i)
-      flash[:notice] = 'カートが更新されました'
-    else
-      flash[:alert] = 'カートの更新に失敗しました'
-    end
+    @cart_item = current_customer.cart_items.find(params[:id])
+    @cart_item.update(amount: params[:amount].to_i)
+    flash[:notice] = 'カートが更新されました'
     redirect_to cart_items_path
   end
   
