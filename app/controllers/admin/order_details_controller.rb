@@ -1,22 +1,22 @@
 class Admin::OrderDetailsController < ApplicationController
   def update
-    @order = Order.find(params[:order_id])
+  # 注文詳細データを取得
     @order_detail = OrderDetail.find(params[:id])
-    @order_details = @order.order_details.all
+    @order = @order_detail.order
 
-    is_updated = true
-    if @order_detail.update(order_detail_params)
-      @order.update(status: 2) if @order_detail.making_status == "in_production"
-      # ②製作ステータスが「製作中」のときに、注文ステータスを「製作中」に更新する。
-      # 紐付いている注文商品の製作ステータスが "すべて" [製作完了]になった際に注文ステータスを「発送準備中」に
-      @order_details.each do |order_detail| #　紐付いている注文商品の製作ステータスを一つ一つeach文で確認
-        if order_detail.making_status != "production_complete" # 製作ステータスが「製作完了」ではない場合 
-          is_updated = false # 上記で定義してあるis_updatedを「false」に変更する。
-        end
+  # 製作ステータスを更新
+    @order_detail.update(order_detail_params)
+    
+      # 注文に紐づくすべての注文詳細の製作ステータスが「製作完了」だったら
+      if @order.order_details.all? { |order_detail| order_detail.crafting_status == "production_complete" }
+        # 注文の注文ステータスを「発送準備中」に更新
+        @order.update(status: 3)
+      elsif @order_detail.crafting_status == "in_production"
+        # 注文詳細の製作ステータスが「製作中」の場合、注文のステータスを「製作中」に更新
+        @order.update(status: 2)
       end
-      @order.update(status: 3) if is_updated
-      # is_updatedがtrueの場合に、注文ステータスが「発送準備中」に更新。上記のif文でis_updatedがfalseになっている場合、更新されない。
-    end
+
+    flash[:notice] = 'ステータスを更新しました'
     redirect_to admin_order_path(@order)
   end
 

@@ -12,8 +12,8 @@
   <h2>新着商品</h2>
   <div class="row justify-content-center">
     <% @items.each do |item| %>
-      <div class="col-4">
-        <div class="card mb-4">
+      <div class="col-3">
+        <div class="card mb-3">
           <%= link_to item_path(item), class: "card-link" do %>
             <%= image_tag item.get_image(300, 200), class: "card-img-top" %>
             <div class="card-body">
@@ -24,6 +24,8 @@
         </div>
       </div>
     <% end %>
+  </div>
+  <div class="row justify-content-right">
     <%= link_to "全ての商品を見る>", items_path %>
   </div>
 </div>

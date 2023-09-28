@@ -64,7 +64,7 @@ class Public::OrdersController < ApplicationController
 
   # 注文情報履歴一覧
   def index
-    @orders = current_customer.orders
+    @orders = current_customer.orders.order(created_at: :desc)
   end
 
   # 注文情報詳細
