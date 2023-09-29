@@ -1,16 +1,20 @@
 <div class="container">
+  <h3><strong>商品一覧</strong></h3>
   <div class="row">
     <div class="col">
-      <h2>商品一覧</h2>
-      <%= link_to "商品登録", new_admin_item_path %>
-      <table class="table table-bordered table-inverse">
-        <thead class="table-light">
+      <div class="d-flex justify-content-end">
+        <%= link_to new_admin_item_path do %>
+          <i class="fa-solid fa-circle-plus fa-3x" style="color: #c2c1c1;"></i>
+        <% end %>
+      </div>
+      <table class="table table-inverse mt-3">
+        <thead class="table-secondary">
           <tr>
-            <th>商品ID</th>
-            <th>商品名</th>
-            <th>税抜き価格</th>
-            <th>ジャンル</th>
-            <th>ステータス</th>
+            <th style="width: 10%">商品ID</th>
+            <th style="width: 35%">商品名</th>
+            <th style="width: 10%">税抜き価格</th>
+            <th style="width: 30%">ジャンル</th>
+            <th style="width: 15%">ステータス</th>
           </tr>
         </thead>
         <tbody>
@@ -20,7 +24,7 @@
               <%= item.id %>
             </td>
             <td>
-              <%= link_to admin_item_path(item.id) do %>
+              <%= link_to admin_item_path(item.id), class: "text-dark text-decoration-underline" do %>
                 <%= item.name %>
               <% end %>
             </td>
@@ -31,7 +35,11 @@
               <%= item.genre.name %>
             </td>
             <td>
-              <%= item.status %>
+              <% if item.status == "販売中" %>
+                <span class="text-success"><strong><%= item.status %></strong></span>
+              <% else %>
+                <span class="text-black-50"><strong><%= item.status %></strong></span>
+              <% end %>
             </td>
           </tr>
           <% end %>

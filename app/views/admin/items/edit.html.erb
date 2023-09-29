@@ -1,19 +1,56 @@
-<h2>商品編集</h2>
-<%= form_with model: @item, url: admin_item_path(@item), method: :patch, local: true do |f| %>
-  <h4>商品画像</h4>
-  <%= f.file_field :image, accept: "image/*" %>
-  <h4>商品名</h4>
-  <%= f.text_field :name %>
-  <h4>商品説明</h4>
-  <%= f.text_area :introduction %>
-  <h4>ジャンル</h4>
-  
-  <h4>税抜き価格</h4>
-  <%= f.text_field :price, pattern: '\d+' %>
-  <h4>販売ステータス</h4>
-  <%= f.radio_button :is_active, true %>
-  <%= f.label :is_active, "販売中", {value: :true, style: "display: inline-block;"} %>
-  <%= f.radio_button :is_active, false %>
-  <%= f.label :is_active, "販売停止中", {value: :false, style: "display: inline-block;"} %>
-  <%= f.submit '保存' %>
-<% end %>
+<div class="container">
+  <h3><strong>商品編集</strong></h3>
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <%= form_with model: @item, url: admin_item_path(@item), method: :patch, local: true do |f| %>
+      <table class="table table-borderless">
+        <tr>
+          <td style="width: 30%"><%= f.label :image, class: "form-label" %></td>
+          <td>
+            <%= f.file_field :image, accept: "image/*", id: "image" %>
+          </td>
+        </tr>
+        <tr>
+          <td><%= f.label :name, class: "form-label" %></td>
+          <td class="d-flex">
+            <%= f.text_field :name, autofocus: true, id: "name", class: "form-control", style: "width:40%" %>
+          </td>
+        </tr>
+        <tr>
+          <td><%= f.label :introduction, class: "form-label" %></td>
+          <td>
+            <%= f.text_area :introduction, autofocus: true, id: "introduction", class: "form-control", style: "width:40%" %>
+          </td>
+        </tr>
+        <tr>
+          <td><%= f.label :genre, class: "form-label" %></td>
+          <td>
+            <%= f.select :genre_id, options_from_collection_for_select(Genre.all, :id, :name) %>
+          </td>
+        </tr>
+        <tr>
+          <td><%= f.label :price, class: "form-label" %></td>
+          <td>
+            <%= f.number_field :price, autofocus: true, id: "price", class: "form-control", style: "width:40%" %>
+          </td>
+        </tr>
+        <tr>
+          <td><%= f.label :is_active, class: "form-label" %></td>
+          <td>
+            <%= f.radio_button :is_active, true %>
+            <%= f.label :is_active, "販売中", {value: :true, style: "display: inline-block;"} %>
+            <%= f.radio_button :is_active, false %>
+            <%= f.label :is_active, "販売停止中", {value: :false, style: "display: inline-block;"} %>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <%= f.submit "変更を保存", class: "btn btn-success" %>
+          </td>
+        </tr>
+      </table>
+      <% end %>
+    </div>
+  </div>
+</div>

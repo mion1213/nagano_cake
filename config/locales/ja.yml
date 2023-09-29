@@ -42,6 +42,21 @@ ja:
         last_name_kana: 'セイ'
         first_name: '名'
         first_name_kana: 'メイ'
+        is_deleted: '会員ステータス'
+      address:
+        postal_code: '郵便番号(ハイフンなし)'
+        address: '住所'
+        name: '宛名'
+      item:
+        image: '商品画像'
+        name: '商品名'
+        introduction: '商品説明'
+        genre: 'ジャンル'
+        price: '税抜価格'
+        is_active: '販売ステータス'
+      genre:
+        name: 'ジャンル名'
+        
   date:
     abbr_day_names:
     - 日

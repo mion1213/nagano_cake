@@ -1,27 +1,37 @@
 <div class="container">
+  <h3><strong>配送先登録/一覧</strong></h3>
   <div class="row">
-    <div class="col6">
-      <%= form_with model: @address, url: addresses_path, local: true do |address| %>
-        <div class="form-group">
-          <label for="postal_code">郵便番号(ハイフンなし)</label>
-          <input type="text" class="form-control" id="postal_code" name="address[postal_code]">
-        </div>
-        <div class="form-group">
-          <label for="address">住所</label>
-          <input type="text" class="form-control" id="address" name="address[address]">
-        </div>
-        <div class="form-group">
-          <label for="name">宛名</label>
-          <input type="text" class="form-control" id="name" name="address[name]">
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-success">新規登録</button>
-        </div>
+    <div class="col-11">
+      <%= form_with model: @address, url: addresses_path, local: true do |f| %>
+      <table class="table table-borderless">
+        <tr>
+          <td style="width: 30%"><%= f.label :postal_code, class: "form-label" %></td>
+          <td>
+            <%= f.text_field :postal_code, autofocus: true, id: "postal_code", class: "form-control", style: "width:40%" %>
+          </td>
+        </tr>
+        <tr>
+          <td><%= f.label :address, class: "form-label" %></td>
+          <td>
+            <%= f.text_field :address, autofocus: true, id: "address", class: "form-control", style: "width:80%" %>
+          </td>
+        </tr>
+        <tr>
+          <td><%= f.label :name, class: "form-label" %></td>
+          <td class="d-flex justify-content-end">
+            <%= f.text_field :name, autofocus: true, id: "name", class: "form-control", style: "width:40%" %>
+            <%= f.submit "新規登録", class: "btn btn-success ml-auto" %>
+          </td>
+        </tr>
+      </table>
       <% end %>
-
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9">
       <table class="table table-bordered table-inverse">
         <thead>
-          <tr>
+          <tr class="table-secondary">
             <th>郵便番号</th>
             <th>住所</th>
             <th>宛名</th>
@@ -40,9 +50,9 @@
             <td>
               <%= address.name %>
             </td>
-            <td>
+            <td style="text-align: center">
               <%= link_to '編集する', edit_address_path(address.id), class: "btn btn-success" %>
-              <%= link_to '削除する', address_path(address.id), method: :delete, class: "btn btn-danger" %>
+              <%= link_to '削除する', address_path(address.id), method: :delete, data: { confirm: '商品をカートから削除しますか？' }, class: "btn btn-danger" %>
             </td>
           </tr>
         <% end %>

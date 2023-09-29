@@ -1,60 +1,97 @@
 <div class="container">
+  <h3><strong>注文履歴詳細</strong></h3>
   <div class="row">
-    <div class="col">
-      <h2>注文履歴詳細</h2>
-      <h6>注文情報</h6>
+    <div class="col-8">
+      <h5><strong>注文情報</strong></h5>
       <table class="table table-bordered table-inverse">
         <thead></thead>
         <tbody>
           <tr>
-            <td>注文日</td>
+            <td class="table-secondary" style="width: 30%">注文日</td>
             <td>
               <%= @order.created_at.strftime('%Y/%m/%d') %>
             </td>
           </tr>
           <tr>
-            <td>配送先</td>
+            <td class="table-secondary">配送先</td>
             <td>
-              〒<%= @order.postal_code %> <%= @order.address %> <%= @order.name %>
+              〒<%= @order.postal_code %><br>
+              <%= @order.address %><br>
+              <%= @order.name %>
             </td>
           </tr>
           <tr>
-            <td>支払方法</td>
+            <td class="table-secondary">支払方法</td>
             <td>
               <%= @order.payment_method_i18n %>
             </td>
           </tr>
           <tr>
-            <td>ステータス</td>
+            <td class="table-secondary">ステータス</td>
             <td>
               <%= @order.status_i18n %>
             </td>
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="col-3">
+      <h5><strong>請求情報</strong></h5>
       <table class="table table-bordered table-inverse">
         <thead></thead>
         <tbody>
           <tr>
-            <td>商品合計</td>
+            <td class="table-secondary" style="width: 50%">商品合計</td>
             <td>
               <%= @order_details.sum { |order_detail| order_detail.price_including_tax * order_detail.quantity } %>
             </td>
           </tr>
           <tr>
-            <td>配送料</td>
+            <td class="table-secondary">配送料</td>
             <td>
               <%= @order.postage %>
             </td>
           </tr>
           <tr>
-            <td>ご請求額</td>
+            <td class="table-secondary">ご請求額</td>
             <td>
               <%= @order.billing_amount %>
             </td>
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9">
+      <h5><strong>注文内容</strong></h5>
+      <table class="table table-bordered table-inverse">
+        <thead>
+          <tr class="table-secondary">
+            <th style="width: 60%">商品</th>
+            <th style="width: 20%">単価（税込）</th>
+            <th style="width: 10%">個数</th>
+            <th style="width: 10%">小計</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order_details.each do |order_detail| %>
+          <tr>
+            <td>
+              <%= order_detail.item.name %>
+            </td>
+            <td>
+              <%= order_detail.price_including_tax %>
+            </td>
+            <td>
+              <%= order_detail.quantity %>
+            </td>
+            <td>
+              <%= order_detail.subtotal %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
     </div>
   </div>
 </div>

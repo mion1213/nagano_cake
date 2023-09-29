@@ -1,9 +1,48 @@
-<div>
-  <%= image_tag @item.get_image(100,100) %>
-  <p>商品名 <%= @item.name %></p>
-  <p>商品説明 <%= @item.introduction %></p>
-  <p>ジャンル <%= @item.genre.name %></p>
-  <p>税込価格 <%= @item.with_tax_price %></br>(税抜価格) (<%= @item.price %>)</p>
-  <p>販売ステータス <%= @item.status %></p>
-  <%= link_to '編集する', edit_admin_item_path(@item.id), class: "btn btn-success" %>
+<div class="container">
+  <h3><strong>商品詳細</strong></h3>
+  <div class="row justify-content-center">
+    <div class="col-7">
+      <%= image_tag @item.get_image(600,400) %>
+    </div>
+    <div class="col-4">
+      <table class="table table-borderless">
+        <tr>
+          <td><strong>商品名</strong></td>
+          <td><%= @item.name %></td>
+        </tr>
+        <tr>
+          <td><strong>商品説明</strong></td>
+          <td><%= @item.introduction %></td>
+        </tr>
+        <tr>
+          <td><strong>ジャンル</strong></td>
+          <td><%= @item.genre.name %></td>
+        </tr>
+        <tr>
+          <td><strong>
+            税込価格<br>
+            (税抜価格)
+          </strong></td>
+          <td>
+            <%= @item.with_tax_price %>
+            (<%= @item.price %>)円
+          </td>
+        </tr>
+        <tr>
+          <td><strong>販売ステータス</strong></td>
+          <td>
+            <% if @item.status == "販売中" %>
+              <span class="text-success"><strong><%= @item.status %></strong></span>
+            <% else %>
+              <span class="text-black-50"><strong><%= @item.status %></strong></span>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><%= link_to '編集する', edit_admin_item_path(@item.id), class: "btn btn-success" %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>

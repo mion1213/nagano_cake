@@ -1,28 +1,46 @@
 <div class="container">
+  <h3><strong>注文履歴詳細</strong></h3>
   <div class="row">
-    <div class="col-6">
-      <p><strong>購入者</strong><%= @order.customer.full_name %></p>
-      <p><strong>注文日</strong><%= @order.created_at.strftime('%Y/%m/%d') %></p>
-      <p><strong>配送先</strong>〒<%= @order.postal_code %> <%= @order.address %><br> <%= @order.name %></p>
-      <p><strong>支払い方法</strong><%= @order.payment_method_i18n %></p>
-      <p><strong>注文ステータス</strong>
-        <%= form_with model: @order, url: admin_order_path(@order), method: :patch, local: true do |f|  %>
-          <%= f.select :status, options_for_select(Order.statuses.map { |k, v| [I18n.t("enums.order.status.#{k}"), k] }, @order.status), class: "status" %>
-          <%= f.submit "更新", class: "btn btn-primary" %>
-        <% end %>
-      </p>
+    <div class="col-12">
+      <table class="table table-borderless">
+        <tr>
+          <td style="width: 20%"><strong>購入者</strong></td>
+          <td><%= @order.customer.full_name %></td>
+        </tr>
+        <tr>
+          <td><strong>注文日</strong></td>
+          <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
+        </tr>
+        <tr>
+          <td><strong>配送先</strong></td>
+          <td>〒<%= @order.postal_code %> <%= @order.address %><br> <%= @order.name %></td>
+        </tr>
+        <tr>
+          <td><strong>支払い方法</strong></td>
+          <td><%= @order.payment_method_i18n %></td>
+        </tr>
+        <tr>
+          <td><strong>注文ステータス</strong></td>
+          <td>
+            <%= form_with model: @order, url: admin_order_path(@order), method: :patch, local: true do |f|  %>
+              <%= f.select :status, options_for_select(Order.statuses.map { |k, v| [I18n.t("enums.order.status.#{k}"), k] }, @order.status), class: "status" %>
+              <%= f.submit "更新", class: "btn btn-success" %>
+            <% end %>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
   <div class="row">
-    <div class="col">
-      <table class="table table-bordered table-inverse">
-        <thead>
+    <div class="col-9">
+      <table class="table table-inverse">
+        <thead class="table-secondary">
           <tr>
-            <th>商品名</th>
-            <th>単価(税込)</th>
-            <th>数量</th>
-            <th>小計</th>
-            <th>製作ステータス</th>
+            <th style="width: 25%">商品名</th>
+            <th style="width: 20%">単価(税込)</th>
+            <th style="width: 12%">数量</th>
+            <th style="width: 13%">小計</th>
+            <th style="width: 30%">製作ステータス</th>
           </tr>
         </thead>
         <tbody>
@@ -43,5 +61,19 @@
         </tbody>
       </table>
     </div>
+    <div class="col-3">
+      <table class="table table-borderless">
+        <tr>
+          <td style="width: 50%"><strong>商品合計</strong></td>
+          <td><%= @order_details.sum { |order_detail| order_detail.price_including_tax * order_detail.quantity } %>円</td>
+        </tr>
+        <tr>
+          <td><strong>送料</strong></td>
+          <td><%= @order.postage %>円</td>
+        </tr>
+        <tr>
+          <td><strong>請求金額合計</strong></td>
+          <td><%= @order.billing_amount %>円</td>
+        </tr>
   </div>
 </div>

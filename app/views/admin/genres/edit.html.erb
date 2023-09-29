@@ -1,1 +1,17 @@
-<h1>ジャンル編集画面</h1>
+<div class="container">
+  <h3><strong>ジャンル一覧・追加</strong></h3>
+  <div class="row">
+    <div class="col-6">
+      <%= form_with model: @genre, url: admin_genre_path(@genre), method: :patch, local: true do |f| %>
+      <table class="table table-borderless">
+        <tr>
+          <td><strong><%= f.label :name, class: "form-label" %></strong></td>
+          <td class="d-flex justify-content-end">
+            <%= f.text_field :name, autofocus: true, id: "name", class: "form-control", style: "width:60%" %>
+            <%= f.submit "変更を保存", class: "btn btn-success ml-auto" %>
+          </td>
+        </tr>
+      </table>
+      <% end %>
+    </div>
+  </div>

@@ -1,13 +1,30 @@
-<h2>配送先編集</h2>
-<%= form_with model: @address do |f| %>
-  <label for="inputPostalCode">郵便番号</label>
-  <%= f.text_field :postal_code, autofocus: true, id: "inputPostalCode", placeholder: "郵便番号" %>
-  
-  <label for="inputAddress">住所</label>
-  <%= f.text_field :address, id: "inputAddress", placeholder: "住所" %>
-  
-  <label for="inputName">宛名</label>
-  <%= f.text_field :name, id: "inputName", placeholder: "宛名" %>
-  
-  <%= f.submit "変更を保存" %>
-<% end %>
+<div class="container">
+  <h3><strong>配送先編集</strong></h3>
+  <div class="row">
+    <div class="col-11">
+      <%= form_with model: @address do |f| %>
+      <table class="table table-borderless">
+        <tr>
+          <td style="width: 30%"><%= f.label :postal_code, class: "form-label" %></td>
+          <td>
+            <%= f.text_field :postal_code, autofocus: true, id: "postal_code", class: "form-control", style: "width:40%" %>
+          </td>
+        </tr>
+        <tr>
+          <td><%= f.label :address, class: "form-label" %></td>
+          <td>
+            <%= f.text_field :address, autofocus: true, id: "address", class: "form-control", style: "width:80%" %>
+          </td>
+        </tr>
+        <tr>
+          <td><%= f.label :name, class: "form-label" %></td>
+          <td class="d-flex justify-content-end">
+            <%= f.text_field :name, autofocus: true, id: "name", class: "form-control", style: "width:40%" %>
+            <%= f.submit "変更内容を保存", class: "btn btn-success ml-auto" %>
+          </td>
+        </tr>
+      </table>
+      <% end %>
+    </div>
+  </div>
+</div>

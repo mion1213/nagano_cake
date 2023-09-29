@@ -1,20 +1,21 @@
-<div class="container p-3">
+<div class="container">
+  <h3><strong>注文履歴一覧</strong></h3>
   <div class="row">
-    <div class="col-md-12">
-      <table>
-        <thead>
+    <div class="col">
+      <table class="table table-inverse">
+        <thead class="table-secondary">
           <tr>
-            <th>購入日時</th>
-            <th>購入者</th>
-            <th>注文個数</th>
-            <th>注文ステータス</th>
+            <th style="width: 25%">購入日時</th>
+            <th style="width: 25%">購入者</th>
+            <th style="width: 20%">注文個数</th>
+            <th style="width: 30%">注文ステータス</th>
           </tr>
         </thead>
         <tbody>
-        <% @orders.each do |order| %>
+          <% @orders.each do |order| %>
           <tr>
             <td>
-              <%= link_to admin_order_path(order.id) do %>
+              <%= link_to admin_order_path(order.id), class: "text-dark text-decoration-underline" do %>
                 <%= order.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
               <% end %>
             </td>
@@ -32,7 +33,8 @@
               <%= order.status_i18n %>
             </td>
           </tr>
-        <% end %>
+          <% end %>
+          <%= paginate @orders %>
         </tbody>
       </table>
     </div>
