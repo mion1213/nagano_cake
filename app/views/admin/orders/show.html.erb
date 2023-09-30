@@ -47,9 +47,9 @@
           <% @order.order_details.each do |order_detail| %>
             <tr>
               <td><%= order_detail.item.name %></td>
-              <td><%= order_detail.item.with_tax_price %></td>
+              <td><%= order_detail.item.with_tax_price.to_s(:delimited) %></td>
               <td><%= order_detail.quantity %></td>
-              <td><%= order_detail.subtotal %></td>
+              <td><%= order_detail.subtotal.to_s(:delimited) %></td>
               <td>
                 <%= form_with model: order_detail, url: admin_order_detail_path(order_detail), method: :patch, local: true do |f|  %>
                   <%= f.select :crafting_status, options_for_select(OrderDetail.crafting_statuses.map { |k, v| [I18n.t("enums.order_detail.crafting_status.#{k}"), k] }, order_detail.crafting_status), class: "crafting_status" %>
@@ -65,7 +65,7 @@
       <table class="table table-borderless">
         <tr>
           <td style="width: 50%"><strong>商品合計</strong></td>
-          <td><%= @order_details.sum { |order_detail| order_detail.price_including_tax * order_detail.quantity } %>円</td>
+          <td><%= @order_details.sum { |order_detail| order_detail.price_including_tax * order_detail.quantity }.to_s(:delimited) %>円</td>
         </tr>
         <tr>
           <td><strong>送料</strong></td>
@@ -73,7 +73,7 @@
         </tr>
         <tr>
           <td><strong>請求金額合計</strong></td>
-          <td><%= @order.billing_amount %>円</td>
+          <td><%= @order.billing_amount.to_s(:delimited) %>円</td>
         </tr>
   </div>
 </div>

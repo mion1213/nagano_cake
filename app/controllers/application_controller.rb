@@ -6,7 +6,7 @@ before_action :configure_permitted_parameters, if: :devise_controller?
     if resource.is_a?(Admin)
       admin_root_path
     else
-      items_path
+      public_customers_profile_path
     end
   end
 

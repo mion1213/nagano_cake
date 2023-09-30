@@ -6,6 +6,7 @@ class Public::CartItemsController < ApplicationController
     @cart_items = current_customer.cart_items
     # カートに入ってる商品の合計金額
     @total = @cart_items.inject(0) { |sum, item| sum + item.subtotal }
+    @cart_items_count = @cart_items.count
   end
   
   def create

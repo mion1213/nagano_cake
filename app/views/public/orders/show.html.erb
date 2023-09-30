@@ -43,7 +43,7 @@
           <tr>
             <td class="table-secondary" style="width: 50%">商品合計</td>
             <td>
-              <%= @order_details.sum { |order_detail| order_detail.price_including_tax * order_detail.quantity } %>
+              <%= @order_details.sum { |order_detail| order_detail.price_including_tax * order_detail.quantity }.to_s(:delimited) %>
             </td>
           </tr>
           <tr>
@@ -55,7 +55,7 @@
           <tr>
             <td class="table-secondary">ご請求額</td>
             <td>
-              <%= @order.billing_amount %>
+              <%= @order.billing_amount.to_s(:delimited) %>
             </td>
           </tr>
         </tbody>
@@ -81,13 +81,13 @@
               <%= order_detail.item.name %>
             </td>
             <td>
-              <%= order_detail.price_including_tax %>
+              <%= order_detail.price_including_tax.to_s(:delimited) %>
             </td>
             <td>
               <%= order_detail.quantity %>
             </td>
             <td>
-              <%= order_detail.subtotal %>
+              <%= order_detail.subtotal.to_s(:delimited) %>
             </td>
           </tr>
           <% end %>
